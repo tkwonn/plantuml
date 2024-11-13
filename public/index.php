@@ -1,7 +1,14 @@
 <?php
 set_include_path(get_include_path() . PATH_SEPARATOR . realpath(__DIR__ . '/..'));
 spl_autoload_extensions(".php");
-spl_autoload_register();
+spl_autoload_register(function ($class) {
+    $path = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+    $file = __DIR__ . '/../' . $path . '.php';
+
+    if (file_exists($file)) {
+        require $file;
+    }
+});
 
 $routes = include('../Routing/routes.php');
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
