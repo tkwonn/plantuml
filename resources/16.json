@@ -1,0 +1,6 @@
+{
+  "id": 16,
+  "title": "CRM System Architecture",
+  "theme": "Archimate diagram",
+  "uml": "@startuml\n!include <archimate/Archimate>\nBusiness_Process(sales, \"Sales Process\")\nBusiness_Process(support, \"Customer Support\")\n\nApplication_Component(crm, \"CRM System\")\nApplication_Service(contact, \"Contact Management\")\nApplication_Service(ticket, \"Ticket Management\")\n\nTechnology_Service(server, \"Application Server\")\nTechnology_Service(db, \"Database\")\n\nRel_Serving_Up(crm, sales)\nRel_Serving_Up(crm, support)\nRel_Serving_Up(contact, crm)\nRel_Serving_Up(ticket, crm)\nRel_Serving_Up(server, crm)\nRel_Serving_Up(db, crm)\n\n@enduml"
+}

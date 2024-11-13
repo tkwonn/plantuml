@@ -1,0 +1,6 @@
+{
+  "id": 19,
+  "title": "Simple Task Break Down",
+  "theme": "WBS diagram",
+  "uml": "@startwbs\n+ Project\n + Part One\n  + Task 1.1\n   - LeftTask 1.2\n   + RightTask 1.3\n + Part Two\n  + Task 2.1\n  + Task 2.2\n@endwbs"
+}

@@ -1,0 +1,7 @@
+{
+    "id": 6,
+    "title": "E-Commerce System Component Architecture",
+    "theme": "Component diagram",
+    "uml": "@startuml\npackage \"Frontend\" {\n    [Web UI] as UI\n    [Shopping Cart] as cart\n}\n\npackage \"Backend Services\" {\n    [User Service] as user\n    [Product Service] as product\n    [Order Service] as order\n    [Payment Service] as payment\n}\n\npackage \"Database Layer\" {\n    database \"User DB\" as userdb\n    database \"Product DB\" as productdb\n    database \"Order DB\" as orderdb\n}\n\ninterface \"REST API\" as api\ninterface \"Database Connection\" as dbconn\n\nUI -down-> api\ncart -down-> api\n\napi -down- user\napi -down- product\napi -down- order\napi -down- payment\n\nuser -down-> dbconn\nproduct -down-> dbconn\norder -down-> dbconn\n\ndbconn -down- userdb\ndbconn -down- productdb\ndbconn -down- orderdb\n\npayment --> [Payment Gateway]\n@enduml"
+}
+

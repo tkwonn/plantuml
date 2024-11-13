@@ -1,0 +1,6 @@
+{
+  "id": 8,
+  "title": "Unix Process State Transition",
+  "theme": "State diagram",
+  "uml": "@startuml\n[*] --> Running : Process Start\n\nRunning --> Blocked : Sleep (S)\nBlocked --> Waiting : I/O Complete (D)\nWaiting --> Running : Schedule (T)\n\nRunning --> [*] : Process Complete\nRunning --> Zombie : Process End (Z)\n\nnote right of Running : Running on CPU (R)\nnote right of Waiting : Ready to run (T)\nnote right of Blocked : Waiting for I/O (S)\nnote right of Zombie : Terminated but waiting for cleanup (Z)\n@enduml"
+}

@@ -1,0 +1,6 @@
+{
+    "id": 3,
+    "title": "Java Collection Framework Hierarchy",
+    "theme": "Class diagram",
+    "uml": "@startuml\ninterface Collection<E> {\n  +size(): int\n  +isEmpty(): boolean\n  +add(e: E): boolean\n  +iterator(): Iterator<E>\n  +toArray(): Object[]\n}\n\ninterface List<E> {\n  +get(index: int): E\n  +set(index: int, element: E): E\n  +add(index: int, element: E): void\n  +indexOf(o: Object): int\n  +listIterator(): ListIterator<E>\n}\n\nabstract class AbstractCollection<E> {\n  #modCount: int\n  +{abstract} iterator(): Iterator<E>\n  +size(): int\n  +isEmpty(): boolean\n  #finalize()\n}\n\nabstract class AbstractList<E> {\n  #modCount: int\n  #{abstract} get(index: int): E\n  #removeRange(fromIndex: int, toIndex: int)\n  +add(e: E): boolean\n  +iterator(): Iterator<E>\n}\n\nclass ArrayList<E> {\n  -elementData: Object[]\n  -size: int\n  +ArrayList()\n  +ArrayList(initialCapacity: int)\n  +trimToSize()\n  +ensureCapacity(minCapacity: int)\n}\n\nCollection <|.. AbstractCollection\nList <|.. AbstractList\nAbstractCollection <|-- AbstractList\nAbstractList <|-- ArrayList\nCollection <|-- List\n@enduml"
+}

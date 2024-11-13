@@ -1,0 +1,6 @@
+{
+  "id": 14,
+  "title": "Network Architecture with DMZ and Internal Segments",
+  "theme": "Network diagram",
+  "uml": "@startuml\nnwdiag {\n  network Internet {\n    width = full\n    Load_Balancer [address = \"203.0.113.10\"];\n  }\n\n  network dmz {\n    address = \"192.168.1.0/24\"\n    Load_Balancer [address = \"192.168.1.1\"];\n    Web_Server_1 [address = \"192.168.1.11\"];\n    Web_Server_2 [address = \"192.168.1.12\"];\n  }\n\n  network internal {\n    address = \"192.168.2.0/24\"\n    Web_Server_1;\n    Web_Server_2;\n    Database_Server [address = \"192.168.2.101\"];\n    Backup_Server [address = \"192.168.2.102\"];\n  }\n}\n@enduml"
+}

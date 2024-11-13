@@ -1,0 +1,7 @@
+{
+    "id": 4,
+    "title": "University Course Registration System",
+    "theme": "Object diagram",
+    "uml": "@startuml\nobject \"student1: Student\" as student1 {\n  id = \"ST001\"\n  name = \"John Smith\"\n  year = 2\n}\n\nobject \"student2: Student\" as student2 {\n  id = \"ST002\"\n  name = \"Mary Johnson\"\n  year = 3\n}\n\nobject \"course1: Course\" as course1 {\n  code = \"CS101\"\n  title = \"Introduction to Programming\"\n  credits = 3\n  maxCapacity = 30\n}\n\nobject \"course2: Course\" as course2 {\n  code = \"CS201\"\n  title = \"Data Structures\"\n  credits = 4\n  maxCapacity = 25\n}\n\nobject \"registration1: Registration\" as reg1 {\n  date = \"2024-04-01\"\n  semester = \"Spring 2024\"\n}\n\nobject \"registration2: Registration\" as reg2 {\n  date = \"2024-04-01\"\n  semester = \"Spring 2024\"\n}\n\nobject \"professor1: Professor\" as prof1 {\n  id = \"PR001\"\n  name = \"Dr. Robert Brown\"\n  department = \"Computer Science\"\n}\n\nstudent1 -- reg1\nstudent1 -- reg2\nreg1 -- course1\nreg2 -- course2\ncourse1 -- prof1\ncourse2 -- prof1\n@enduml"
+}
+

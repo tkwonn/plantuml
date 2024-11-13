@@ -1,0 +1,6 @@
+{
+  "id": 18,
+  "title": "Debian-based Distributions",
+  "theme": "Mindmap diagram",
+  "uml": "@startmindmap\n* Debian\n**[#lightgreen] Ubuntu\n*** Linux Mint\n*** Kubuntu\n*** Lubuntu\n*** KDE Neon\n** LMDE\n** SolydXK\n** SteamOS\n** Raspbian\n@endmindmap"
+}

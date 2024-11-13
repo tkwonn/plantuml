@@ -1,0 +1,6 @@
+{
+    "id": 5,
+    "title": "E-commerce Shipping Fee Decision Flow",
+    "theme": "Activity diagram",
+    "uml": "@startuml\n!pragma useVerticalIf on\nstart\nif (Cart Total Amount) then (Over $100)\n  :Free Shipping;\nelseif ($50 or more) then (yes)\n  :50% OFF Shipping Fee;\n  stop\nelseif ($30 or more) then (yes)\n  :Standard Shipping Fee;\nelseif ($10 or more) then (yes)\n  :Additional Shipping Fee;\nelse (Under $10)\n  :Error: Below Minimum Purchase;\nendif\nstop\n@enduml"
+}

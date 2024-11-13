@@ -1,0 +1,6 @@
+{
+  "id": 12,
+  "title": "Lisp Grammar",
+  "theme": "EBNF diagram",
+  "uml": "@startebnf\ngrammars_expression = atomic_symbol | \"(\", s_expression, \".\", s_expression, \")\" | list;\n@endebnf"
+}

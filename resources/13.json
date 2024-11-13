@@ -1,0 +1,6 @@
+{
+  "id": 13,
+  "title": "Required Repetition Pattern",
+  "theme": "Regex diagram",
+  "uml": "@startregex\ntitle requiredRepetition\nab+\n@endregex"
+}

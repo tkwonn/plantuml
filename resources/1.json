@@ -1,0 +1,6 @@
+{
+    "id": 1,
+    "title": "Authentication Request & Response",
+    "theme": "Sequence diagram",
+    "uml": "@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\nAlice -> Bob: Another authentication Request\nAlice <-- Bob: another authentication Response\n@enduml"
+}

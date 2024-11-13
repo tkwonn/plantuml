@@ -1,0 +1,6 @@
+{
+  "id": 20,
+  "title": "Customer, Order, and Product Relationship",
+  "theme": "IE diagram",
+  "uml": "@startuml\nentity \"Customer\" as C {\n  *customer_id : INT\n  --\n  name : VARCHAR\n  email : VARCHAR\n  phone : VARCHAR\n}\n\nentity \"Order\" as O {\n  *order_id : INT\n  --\n  order_date : DATE\n  status : VARCHAR\n  total_amount : DECIMAL\n}\n\nentity \"Product\" as P {\n  *product_id : INT\n  --\n  name : VARCHAR\n  description : VARCHAR\n  price : DECIMAL\n  stock_quantity : INT\n}\n\nentity \"Order_Product\" as OP {\n  *order_id : INT\n  *product_id : INT\n  --\n  quantity : INT\n  unit_price : DECIMAL\n}\n\nC ||--o{ O : \"places\"\nO ||--|{ OP : \"contains\"\nP |o--|{ OP : \"includes\"\n@enduml"
+}

@@ -1,0 +1,7 @@
+{
+  "id": 15,
+  "title": "Basic UI Elements Mockup",
+  "theme": "UI mockups",
+  "uml": "@startsalt\n{\n  Just plain text\n  [This is my button]\n  ()  Unchecked radio\n  (X) Checked radio\n  []  Unchecked box\n  [X] Checked box\n  \"Enter text here   \"\n  ^This is a droplist^\n}\n@endsalt"
+}
+

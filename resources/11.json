@@ -1,0 +1,6 @@
+{
+  "id": 11,
+  "title": "Personal Information YAML Data",
+  "theme": "YAML data",
+  "uml": "@startyaml\nfirstName: \"John\"\nlastName: \"Smith\"\nisAlive: true\nage: 27\naddress:\n  streetAddress: \"21 2nd Street\"\n  city: \"New York\"\n  state: \"NY\"\n  postalCode: \"10021-3100\"\n@endyaml"
+}

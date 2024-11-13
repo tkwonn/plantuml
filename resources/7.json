@@ -1,0 +1,7 @@
+{
+    "id": 7,
+    "title": "AWS Web Application Deployment Architecture",
+    "theme": "Deployment diagram",
+    "uml": "@startuml\nnode \"Client\" {\n    artifact \"Web Browser\" as browser\n}\n\ncloud \"AWS Cloud\" {\n    node \"AWS Route 53\" as route53\n    \n    node \"Load Balancer\" as alb {\n    }\n    \n    node \"EC2 Instance\" as web1 {\n        artifact \"Web Server\" as app1\n    }\n    \n    node \"EC2 Instance\" as web2 {\n        artifact \"Web Server\" as app2\n    }\n    \n    node \"RDS Instance\" {\n        database \"MySQL Database\" as db\n    }\n}\n\nbrowser --> route53\nroute53 --> alb\nalb --> web1\nalb --> web2\nweb1 --> db\nweb2 --> db\n@enduml"
+}
+

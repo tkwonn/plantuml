@@ -1,0 +1,6 @@
+{
+  "id": 9,
+  "title": "CPU Instruction Fetch Timing",
+  "theme": "Timing diagram",
+  "uml": "@startuml\nrobust \"Clock\" as CLK\nbinary \"Fetch\" as FETCH\nconcise \"Instruction\" as INST\n\n@0\nCLK is high\nFETCH is low\nINST is \"IDLE\"\n\n@1\nCLK is low\n\n@2\nCLK is high\nFETCH is high\nINST is \"ADD\"\n\n@3\nCLK is low\n\n@4\nCLK is high\nFETCH is high\nINST is \"SUB\"\n\n@5\nCLK is low\n\n@6\nCLK is high\nFETCH is low\nINST is \"IDLE\"\n\n@7\nCLK is low\n\nhighlight 2 to 4 #LightBlue : Fetching ADD\nhighlight 4 to 6 #LightGreen : Fetching SUB\n@enduml"
+}

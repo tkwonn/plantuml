@@ -1,0 +1,6 @@
+{
+  "id": 10,
+  "title": "Personal Information JSON Data",
+  "theme": "JSON data",
+  "uml": "@startjson\n{\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"isAlive\": true,\n  \"age\": 27,\n  \"address\": {\n    \"streetAddress\": \"21 2nd Street\",\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"postalCode\": \"10021-3100\"\n  }\n}\n@endjson"
+}

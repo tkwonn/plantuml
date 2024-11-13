@@ -1,0 +1,6 @@
+{
+    "id": 2,
+    "title": "Coffee Shop Customer Service Flow",
+    "theme": "Usecase diagram",
+    "uml": "@startuml\nleft to right direction\nactor \"Customer\" as customer\nactor \"Cashier\" as cashier\nusecase \"Place Order\" as UC1\nusecase \"Process Payment\" as UC2\nusecase \"Make Coffee\" as UC3\nusecase \"Serve Coffee\" as UC4\ncustomer --> UC1\ncustomer --> UC2\ncashier --> UC3\ncashier --> UC4\nUC1 ..> UC2 : includes\nUC2 ..> UC3 : includes\nUC3 ..> UC4 : includes\n@enduml"
+}
