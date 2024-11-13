@@ -8,12 +8,11 @@ URL: [plantuml.taesokkwon.com](https://plantuml.taesokkwon.com)
 
 Step1. Select a problem from the curated list and write UML code in the editor while comparing with the example solution.
 
-video 1
+https://github.com/user-attachments/assets/315e98bf-2a4e-4f0c-9b79-06c349c60040
 
 Step2. Download the diagram.
 
-video 2
-
+https://github.com/user-attachments/assets/b464fd36-e7a3-4937-8f9b-8407adae0581
 
 ## Built with
 
