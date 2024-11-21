@@ -1,0 +1,137 @@
+name: deploy to EC2
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  ####### CI #######
+  fix:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Use PHP 8.3 🛎
+        uses: shivammathur/setup-php@4
+        with:
+          php-version: '8.3'
+
+      - name: Validate composer.json and composer.lock 👀
+        run: composer validate --strict
+
+      - name: Get Composer Cache Directory　📂
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer packages 📦
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+            ${{ runner.os }}-
+
+      - name: Install dependencies ⏳
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Run PHP CS Fixer　👀
+        run: vendor/bin/php-cs-fixer fix -v --diff --dry-run
+
+  ####### CD #######
+  deploy:
+    needs: fix
+    runs-on: ubuntu-22.04
+
+    permissions:
+      id-token: write
+      contents: read
+
+    env:
+      ROLE_ARN: arn:aws:iam::${{ secrets.AWS_ID }}:role/${{ secrets.ROLE_NAME }}
+      SESSION_NAME: deploy-${{ github.run_id }}-${{ github.run_attempt }}
+      EC2_INSTANCE_ID: "i-0787bc1994b8b31e1"
+      AWS_REGION: "us-west-2"
+      GITHUB_BRANCH: "${{ github.ref_name }}"
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.ROLE_ARN }}
+          role-session-name: ${{ env.SESSION_NAME }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy Application 🚀
+        run: |
+          COMMANDS_JSON=$(cat << EOF
+          {
+            "commands": [
+              "set -e",
+              "sudo chown -R ubuntu:ubuntu /home/ubuntu/web/plantuml",
+              "sudo -u ubuntu bash -c 'set -e; cd /home/ubuntu/web/plantuml && \
+                git fetch origin $GITHUB_BRANCH && \
+                git reset --hard origin/$GITHUB_BRANCH && \
+                composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
+                sudo systemctl restart php8.3-fpm && \
+                sudo systemctl reload nginx'"
+            ]
+          }
+          EOF
+          )
+          
+          # Send SSM Command
+          COMMAND_ID=$(aws ssm send-command \
+            --instance-ids "${{ env.EC2_INSTANCE_ID }}" \
+            --document-name "AWS-RunShellScript" \
+            --comment "Deploy application" \
+            --parameters "$COMMANDS_JSON" \
+            --region "${{ env.AWS_REGION }}" \
+            --timeout-seconds 3600 \
+            --query "Command.CommandId" \
+            --output text)
+          
+          echo "SSM Command ID: $COMMAND_ID"
+          
+          # Poll for command status
+          MAX_ATTEMPTS=60
+          SLEEP_INTERVAL=10
+          
+          for (( i=0; i<$MAX_ATTEMPTS; i++ ))
+          do
+            STATUS=$(aws ssm list-command-invocations \
+              --command-id "$COMMAND_ID" \
+              --details \
+              --query "CommandInvocations[0].Status" \
+              --output text)
+          
+            echo "Current SSM command status: $STATUS"
+          
+            # Retrieve logs progressively
+            OUTPUT=$(aws ssm get-command-invocation \
+              --instance-id "${{ env.EC2_INSTANCE_ID }}" \
+              --command-id "$COMMAND_ID" \
+              --query "StandardOutputContent" \
+              --output text || true)
+          
+            if [ -n "$OUTPUT" ]; then
+              echo "$OUTPUT"
+            fi
+          
+            if [ "$STATUS" == "Success" ]; then
+              echo "SSM command succeeded!"
+              break
+            elif [ "$STATUS" == "Failed" ]; then
+              echo "SSM command failed!"
+              exit 1
+            fi
+          
+            sleep $SLEEP_INTERVAL
+          done
+          
+          if [ "$STATUS" != "Success" ]; then
+            echo "SSM command did not complete within expected time."
+            exit 1
+          fi
