@@ -1,0 +1,11 @@
+{
+    "name": "tkwonn/plantuml",
+    "description": "PlantUML Server App",
+    "license": "proprietary",
+    "scripts": {
+        "cs-fix": "php-cs-fixer fix --diff"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64"
+    }
+}
