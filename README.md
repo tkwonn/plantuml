@@ -1,12 +1,16 @@
+# PlantUML Server
+
+[![GitHub last commit](https://img.shields.io/github/last-commit/tkwonn/plantuml?color=chocolate)](https://github.com/tkwonn/plantuml/commits/)
+
 ## What is this
 
 A web-based UML learning tool that helps users practice creating various types of UML diagrams using PlantUML syntax.   
 
-URL: [plantuml.taesokkwon.com](https://plantuml.taesokkwon.com)
+**URL**: [plantuml.taesokkwon.com](https://plantuml.taesokkwon.com)
 
 ## Demo
 
-Step1. Select a problem from the curated list and write UML code in the editor while comparing with the example solution.
+Step1. Select a problem from the list and write UML code in the editor while comparing with the example solution.
 
 https://github.com/user-attachments/assets/315e98bf-2a4e-4f0c-9b79-06c349c60040
 
@@ -23,6 +27,7 @@ https://github.com/user-attachments/assets/b464fd36-e7a3-4937-8f9b-8407adae0581
 | Frontend          | HTML, JavaScript, Bootstrap CSS                                                                                                                              |
 | Backend           | PHP                                                                                                                                                          |
 | Storage           | Temporary file storage on server                                                                                                                             |
+| CI/CD             | GitHub Actions                                                                                                                                               |
 | Framework & Tools | - Monaco editor (code editor)<br>- [PlantUML v1.2024.7 (UML diagram generation)](https://plantuml.com/download)<br>- Graphviz (graph visualization software) |
 
 ## Features
@@ -48,7 +53,7 @@ Diagrams can be exported in the following formats:
 - SVG
 - TXT (for source code backup and reuse)
 
-## Project Considerations
+### What I focused on
 
 As non-functional requirements for this project, I focused on the following points:
 
@@ -72,4 +77,11 @@ As non-functional requirements for this project, I focused on the following poin
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
 | HTML escape  | Applied `htmlspecialchars()` with ENT_QUOTES flag to safely display data from storage by encoding special characters.                                  |
 | OS command   | Protected against command injection attacks by using `escapeshellarg()` to properly escape and quote shell arguments when executing PlantUML jar file. |
+
+## CI/CD
+
+### CI
+
+
+### CD
 
