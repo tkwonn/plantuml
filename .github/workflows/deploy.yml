@@ -2,7 +2,10 @@ name: deploy to EC2
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+    paths:
+      - '**/*.php'
 
 jobs:
   ####### CI #######
