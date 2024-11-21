@@ -1,10 +1,12 @@
 <?php
+
 namespace Helpers;
 
 use RuntimeException;
+
 class UMLConvertor
 {
-    private static string $jar_path = __DIR__.'/../lib/plantuml-1.2024.7.jar';
+    private static string $jar_path = __DIR__ . '/../lib/plantuml-1.2024.7.jar';
     private static string $tmp_path = __DIR__ . '/../tmp';
 
     public static function convertUML(string $uml_code, string $format = 'svg'): string

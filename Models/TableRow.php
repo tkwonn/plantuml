@@ -5,8 +5,11 @@ namespace Models;
 class TableRow
 {
     public function __construct(
-        protected int $id, protected string $title, protected string $theme
-    ) {}
+        protected int $id,
+        protected string $title,
+        protected string $theme
+    ) {
+    }
 
     public function getID(): int
     {

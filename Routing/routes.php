@@ -1,38 +1,38 @@
 <?php
 
-use Helpers\ValidateArgHelper;
+use Database\ProblemDaoImpl;
+use Exceptions\HttpException;
 use Helpers\UMLConvertor;
 use Helpers\ValidateAPIRequest;
-use Database\ProblemDaoImpl;
+use Helpers\ValidateArgHelper;
 use Response\HTTPRenderer;
+use Response\Render\FileRenderer;
 use Response\Render\HTMLRenderer;
 use Response\Render\SVGRenderer;
-use Response\Render\FileRenderer;
-use Exceptions\HttpException;
 
 $problemDao = new ProblemDaoImpl(__DIR__ . '/../resources/');
 
 return [
-    '' => function() use ($problemDao): HTTPRenderer {
+    '' => function () use ($problemDao): HTTPRenderer {
         $tableRows = $problemDao->getAllProblems();
         $perPage = 5;
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
         $offset = ($page - 1) * $perPage;
 
         return new HTMLRenderer('home', [
             'items' => array_slice($tableRows, $offset, $perPage),
             'page' => $page,
-            'totalPages' => ceil(count($tableRows) / $perPage)
+            'totalPages' => ceil(count($tableRows) / $perPage),
         ]);
     },
-    'problems' => function() use ($problemDao): HTTPRenderer {
+    'problems' => function () use ($problemDao): HTTPRenderer {
         try {
             $id = ValidateArgHelper::integer($_GET['id'] ?? null, 1);
         } catch (\InvalidArgumentException $e) {
             throw new HttpException(400, $e->getMessage());
         }
 
-        $problem = $problemDao->getProblemById((int)$id);
+        $problem = $problemDao->getProblemById((int) $id);
 
         if ($problem === null) {
             throw new HttpException(404, 'Problem #' . $id . ' not found');
@@ -40,7 +40,7 @@ return [
 
         return new HTMLRenderer('problem', ['problem' => $problem]);
     },
-    'api/uml/preview' => function(): HTTPRenderer {
+    'api/uml/preview' => function (): HTTPRenderer {
         $data = ValidateAPIRequest::uml($_POST['format'] ?? null);
 
         try {
@@ -51,7 +51,7 @@ return [
 
         return new SVGRenderer($svgContent);
     },
-    'api/uml/export' => function(): HTTPRenderer {
+    'api/uml/export' => function (): HTTPRenderer {
         $data = ValidateAPIRequest::uml($_POST['format'] ?? null);
 
         try {
@@ -63,7 +63,7 @@ return [
         $contentTypes = [
             'png' => 'image/png',
             'svg' => 'image/svg+xml',
-            'txt' => 'text/plain; charset=utf-8'
+            'txt' => 'text/plain; charset=utf-8',
         ];
 
         return new FileRenderer(
@@ -71,5 +71,5 @@ return [
             $contentTypes[$data['format']],
             "uml-diagram.{$data['format']}"
         );
-    }
+    },
 ];

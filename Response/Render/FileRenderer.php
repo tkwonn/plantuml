@@ -1,4 +1,5 @@
 <?php
+
 namespace Response\Render;
 
 use Response\HTTPRenderer;
@@ -9,7 +10,8 @@ class FileRenderer implements HTTPRenderer
         private string $content,
         private string $contentType,
         private string $fileName
-    ) {}
+    ) {
+    }
 
     public function getFields(): array
     {

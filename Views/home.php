@@ -1,13 +1,13 @@
 <?php
 /**
  * @var array $items List of problems
- * @var int $page Current page number
- * @var int $totalPages Total number of pages
+ * @var int   $page Current page number
+ * @var int   $totalPages Total number of pages
  */
-$pageTitle = "PlantUML Server";
+$pageTitle = 'PlantUML Server';
 $needsEditor = false;
-$bodyClass = "bg-light";
-require __DIR__.'/partials/header.php';
+$bodyClass = 'bg-light';
+require __DIR__ . '/partials/header.php';
 ?>
 
 <div class="container my-5">
@@ -40,7 +40,7 @@ require __DIR__.'/partials/header.php';
         <ul class="pagination justify-content-center">
             <!-- Previous button -->
             <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
-                <a class="page-link" href="?page=<?= $page-1 ?>" aria-label="Previous">
+                <a class="page-link" href="?page=<?= $page - 1 ?>" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -52,7 +52,7 @@ require __DIR__.'/partials/header.php';
             <?php endfor; ?>
             <!-- Next button -->
             <li class="page-item <?= ($page >= $totalPages) ? 'disabled' : '' ?>">
-                <a class="page-link" href="?page=<?= $page+1 ?>" aria-label="Next">
+                <a class="page-link" href="?page=<?= $page + 1 ?>" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

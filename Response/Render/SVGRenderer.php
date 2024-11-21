@@ -8,7 +8,8 @@ class SVGRenderer implements HTTPRenderer
 {
     public function __construct(
         private string $svgContent
-    ) {}
+    ) {
+    }
 
     public function getFields(): array
     {

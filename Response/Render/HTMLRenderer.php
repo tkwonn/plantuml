@@ -9,7 +9,8 @@ class HTMLRenderer implements HTTPRenderer
     public function __construct(
         private string $viewFile,
         private array $data = []
-    ) {}
+    ) {
+    }
 
     public function getFields(): array
     {

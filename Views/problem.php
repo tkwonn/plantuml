@@ -2,9 +2,9 @@
 /**
  * @var \Tk\Plantuml\Models\Problem $problem
  */
-$pageTitle = "#" . $problem->getID() . " " . $problem->getTitle();
+$pageTitle = '#' . $problem->getID() . ' ' . $problem->getTitle();
 $needsEditor = true;
-require __DIR__.'/partials/header.php';
+require __DIR__ . '/partials/header.php';
 ?>
 
 <div class="container-fluid py-4 px-4">

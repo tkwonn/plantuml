@@ -1,4 +1,5 @@
 <?php
+
 namespace Database;
 
 use Models\Problem;
@@ -35,7 +36,7 @@ class ProblemDaoImpl implements ProblemDAO
     {
         $tableRows = [];
         $files = glob($this->problemResourcesPath . '*.json');
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $jsonData = file_get_contents($file);
             $data = json_decode($jsonData, true);
 

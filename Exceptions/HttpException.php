@@ -1,7 +1,9 @@
 <?php
+
 namespace Exceptions;
 
 use Exception;
+
 class HttpException extends Exception
 {
     private static array $statusPhrases = [
@@ -9,6 +11,7 @@ class HttpException extends Exception
         404 => 'Not Found',
         405 => 'Method Not Allowed',
     ];
+
     public function __construct(int $statusCode, string $message)
     {
         $statusPhrase = self::$statusPhrases[$statusCode];

@@ -1,14 +1,15 @@
 <?php
+
 namespace Helpers;
 
 use Exceptions\HttpException;
+
 class ValidateAPIRequest
 {
-
     /**
-     * @param string|null $format The requested format.
-     * @return array An array containing 'uml_code' and 'format'.
+     * @param  string|null   $format The requested format.
      * @throws HttpException If the request method is not POST or parameters are invalid.
+     * @return array         An array containing 'uml_code' and 'format'.
      */
     public static function uml(?string $format): array
     {
@@ -27,7 +28,7 @@ class ValidateAPIRequest
 
         return [
             'uml_code' => $uml_code,
-            'format' => $format
+            'format' => $format,
         ];
     }
 }

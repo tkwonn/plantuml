@@ -1,7 +1,7 @@
 <?php
 /**
  * @var string $pageTitle
- * @var bool $needsEditor
+ * @var bool   $needsEditor
  * @var string $bodyClass
  */
 ?>
