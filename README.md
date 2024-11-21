@@ -81,8 +81,34 @@ As non-functional requirements for this project, I focused on the following poin
 
 ## CI/CD
 
+
 ### CI
 
+**Dependency Caching**
+
+Utilizes composer cache to speed up dependency installation by reusing previously installed modules.   
+If the cache is invalidated, it ensures a clean environment with composer install.
+
+**Code Quality Check**
+
+Uses PHP CS Fixer to enforce coding standards and prevent inconsistent code. Dry-run mode ensures no unintended changes are merged.
 
 ### CD
+
+**OpenID Connect for Secure AWS Authentication**
+
+- Used OpenID Connect to securely assume an IAM role, eliminating the need to store long-term AWS credentials as secrets.
+- The workflow dynamically obtains a short-lived token to access AWS resources, adhering to best security practices.
+- Ensures secure cloud role operations by granting only the minimal necessary permissions (avoiding FullAccess roles) and verifying that access is restricted to the intended repository.
+
+<br>
+
+**AWS Systems Manager (SSM)**
+
+- Used SSM to execute commands on the EC2 instance after authentication, removing the need for direct SSH access or changes to security groups.
+- Key operations include:
+    - Pulling the latest code.
+    - Installing dependencies with `composer install`.
+    - Restarting services (php8.3-fpm and nginx) to apply changes.
+
 
