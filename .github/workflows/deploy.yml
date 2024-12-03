@@ -8,7 +8,7 @@ on:
 
 jobs:
   ####### CI #######
-  fix:
+  quality-check:
     runs-on: ubuntu-22.04
 
     steps:
@@ -23,7 +23,7 @@ jobs:
       - name: Validate composer.json and composer.lock 👀
         run: composer validate --strict
 
-      - name: Get Composer Cache Directory　📂
+      - name: Get Composer Cache Directory 📂
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
@@ -39,12 +39,12 @@ jobs:
       - name: Install dependencies ⏳
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-      - name: Run PHP CS Fixer　👀
+      - name: Run PHP CS Fixer 👀
         run: vendor/bin/php-cs-fixer fix -v --diff --dry-run
 
   ####### CD #######
   deploy:
-    needs: fix
+    needs: quality-check
     runs-on: ubuntu-22.04
 
     permissions:

@@ -1,4 +1,12 @@
-.idea/
-.vscode/
+# Temporary files
+/var/*
+!/var/.gitkeep
+
+# Composer
 vendor/
 .php-cs-fixer.cache
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store

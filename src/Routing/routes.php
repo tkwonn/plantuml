@@ -1,20 +1,20 @@
 <?php
 
-use Database\ProblemDaoImpl;
 use Exceptions\HttpException;
 use Helpers\UMLConvertor;
 use Helpers\ValidateAPIRequest;
 use Helpers\ValidateArgHelper;
+use Repositories\JsonProblemRepository;
 use Response\HTTPRenderer;
 use Response\Render\FileRenderer;
 use Response\Render\HTMLRenderer;
 use Response\Render\SVGRenderer;
 
-$problemDao = new ProblemDaoImpl(__DIR__ . '/../resources/');
+$problemRepository = new JsonProblemRepository();
 
 return [
-    '' => function () use ($problemDao): HTTPRenderer {
-        $tableRows = $problemDao->getAllProblems();
+    '' => function () use ($problemRepository): HTTPRenderer {
+        $tableRows = $problemRepository->findAll();
         $perPage = 5;
         $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
         $offset = ($page - 1) * $perPage;
@@ -25,14 +25,14 @@ return [
             'totalPages' => ceil(count($tableRows) / $perPage),
         ]);
     },
-    'problems' => function () use ($problemDao): HTTPRenderer {
+    'problems' => function () use ($problemRepository): HTTPRenderer {
         try {
             $id = ValidateArgHelper::integer($_GET['id'] ?? null, 1);
         } catch (\InvalidArgumentException $e) {
             throw new HttpException(400, $e->getMessage());
         }
 
-        $problem = $problemDao->getProblemById((int) $id);
+        $problem = $problemRepository->findById($id);
 
         if ($problem === null) {
             throw new HttpException(404, 'Problem #' . $id . ' not found');
