@@ -4,7 +4,11 @@ on:
   push:
     branches: [main]
     paths:
-      - '**/*.php'
+      - 'src/**'
+      - 'public/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - '.github/workflows/**'
 
 jobs:
   ####### CI #######
