@@ -1,8 +1,8 @@
 <?php
 
-namespace Response\Render;
+namespace PlantUML\Response\Render;
 
-use Response\HTTPRenderer;
+use PlantUML\Response\HTTPRenderer;
 
 class FileRenderer implements HTTPRenderer
 {

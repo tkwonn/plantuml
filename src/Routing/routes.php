@@ -1,14 +1,14 @@
 <?php
 
-use Exceptions\HttpException;
-use Helpers\UMLConvertor;
-use Helpers\ValidateAPIRequest;
-use Helpers\ValidateArgHelper;
-use Repositories\JsonProblemRepository;
-use Response\HTTPRenderer;
-use Response\Render\FileRenderer;
-use Response\Render\HTMLRenderer;
-use Response\Render\SVGRenderer;
+use PlantUML\Exceptions\HttpException;
+use PlantUML\Helpers\UMLConvertor;
+use PlantUML\Helpers\ValidateAPIRequest;
+use PlantUML\Helpers\ValidateArgHelper;
+use PlantUML\Repositories\JsonProblemRepository;
+use PlantUML\Response\HTTPRenderer;
+use PlantUML\Response\Render\FileRenderer;
+use PlantUML\Response\Render\HTMLRenderer;
+use PlantUML\Response\Render\SVGRenderer;
 
 $problemRepository = new JsonProblemRepository();
 

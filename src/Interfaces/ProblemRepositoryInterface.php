@@ -1,8 +1,8 @@
 <?php
 
-namespace Interfaces;
+namespace PlantUML\Interfaces;
 
-use Models\Problem;
+use PlantUML\Models\Problem;
 
 interface ProblemRepositoryInterface
 {

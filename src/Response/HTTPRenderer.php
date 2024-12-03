@@ -1,6 +1,6 @@
 <?php
 
-namespace Response;
+namespace PlantUML\Response;
 
 interface HTTPRenderer
 {

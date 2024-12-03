@@ -1,10 +1,10 @@
 <?php
 
-namespace Repositories;
+namespace PlantUML\Repositories;
 
-use Interfaces\ProblemRepositoryInterface;
-use Models\Problem;
-use Models\TableRow;
+use PlantUML\Interfaces\ProblemRepositoryInterface;
+use PlantUML\Models\Problem;
+use PlantUML\Models\TableRow;
 
 class JsonProblemRepository implements ProblemRepositoryInterface
 {

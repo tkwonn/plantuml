@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace PlantUML\Models;
 
 class Problem extends TableRow
 {

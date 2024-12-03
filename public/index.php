@@ -1,6 +1,8 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
+use PlantUML\Exceptions\HttpException;
+
 $routes = include '../src/Routing/routes.php';
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $path = ltrim($path, '/');
@@ -14,12 +16,12 @@ if (php_sapi_name() === 'cli-server') {
 
 try {
     if (!isset($routes[$path])) {
-        throw new \Exceptions\HttpException(404, 'The requested page was not found');
+        throw new HttpException(404, 'The requested page was not found');
     }
 
     $renderer = $routes[$path]();
     echo $renderer->getContent();
-} catch (\Exceptions\HttpException $e) {
+} catch (HttpException $e) {
     http_response_code($e->getStatusCode());
     echo $e->getStatusCode() . ' ' . $e->getErrorMessage();
 } catch (Exception $e) {

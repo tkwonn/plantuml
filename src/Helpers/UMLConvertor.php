@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace PlantUML\Helpers;
 
 use RuntimeException;
 

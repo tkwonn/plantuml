@@ -1,8 +1,8 @@
 <?php
 
-namespace Helpers;
+namespace PlantUML\Helpers;
 
-use Exceptions\HttpException;
+use PlantUML\Exceptions\HttpException;
 
 class ValidateAPIRequest
 {
