@@ -1,6 +1,5 @@
 # Temporary files
-/var/*
-!/var/.gitkeep
+var/tmp
 
 # Composer
 vendor/

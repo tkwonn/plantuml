@@ -12,7 +12,7 @@ on:
 
 jobs:
   ####### CI #######
-  quality-check:
+  lint:
     runs-on: ubuntu-22.04
 
     steps:
@@ -48,7 +48,7 @@ jobs:
 
   ####### CD #######
   deploy:
-    needs: quality-check
+    needs: lint
     runs-on: ubuntu-22.04
 
     permissions:
