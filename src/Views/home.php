@@ -27,7 +27,7 @@ require __DIR__ . '/partials/header.php';
         </thead>
         <tbody>
         <?php foreach ($items as $item): ?>
-            <tr onclick="window.location.href = '/problems?id=<?= $item->getID() ?>'">
+            <tr onclick="window.location.href = '/problems?id=<?= urlencode($item->getID()) ?>'">
                 <td><?= htmlspecialchars($item->getID(), ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($item->getTitle(), ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($item->getTheme(), ENT_QUOTES, 'UTF-8') ?></td>
