@@ -16,10 +16,6 @@ class UMLConvertor
         $output_path = self::TMP_PATH . "/$uid.$format";
 
         try {
-            if (!is_dir(self::TMP_PATH)) {
-                mkdir(self::TMP_PATH, 0777, true);
-            }
-
             file_put_contents($input_path, $uml_code);
 
             $command = sprintf(
