@@ -2,19 +2,18 @@
 
 use PlantUML\Exceptions\HttpException;
 use PlantUML\Helpers\UMLConvertor;
-use PlantUML\Helpers\ValidateAPIRequest;
-use PlantUML\Helpers\ValidateArgHelper;
-use PlantUML\Repositories\JsonProblemRepository;
+use PlantUML\Helpers\ValidateRequest;
+use PlantUML\Models\ProblemMapper;
 use PlantUML\Response\HTTPRenderer;
 use PlantUML\Response\Render\FileRenderer;
 use PlantUML\Response\Render\HTMLRenderer;
 use PlantUML\Response\Render\SVGRenderer;
 
-$problemRepository = new JsonProblemRepository();
+$problemMapper = new ProblemMapper();
 
 return [
-    '' => function () use ($problemRepository): HTTPRenderer {
-        $tableRows = $problemRepository->findAll();
+    '' => function () use ($problemMapper): HTTPRenderer {
+        $tableRows = $problemMapper->getTableRowData();
         $perPage = 5;
         $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
         $offset = ($page - 1) * $perPage;
@@ -25,15 +24,14 @@ return [
             'totalPages' => ceil(count($tableRows) / $perPage),
         ]);
     },
-    'problems' => function () use ($problemRepository): HTTPRenderer {
+    'problems' => function () use ($problemMapper): HTTPRenderer {
         try {
-            $id = ValidateArgHelper::integer($_GET['id'] ?? null, 1);
+            $id = ValidateRequest::integer($_GET['id'] ?? null, 1);
         } catch (\InvalidArgumentException $e) {
             throw new HttpException(400, $e->getMessage());
         }
 
-        $problem = $problemRepository->findById($id);
-
+        $problem = $problemMapper->getProblemById($id);
         if ($problem === null) {
             throw new HttpException(404, 'Problem #' . $id . ' not found');
         }
@@ -41,23 +39,32 @@ return [
         return new HTMLRenderer('problem', ['problem' => $problem]);
     },
     'api/uml/preview' => function (): HTTPRenderer {
-        $data = ValidateAPIRequest::uml($_POST['format'] ?? null);
-
         try {
-            $svgContent = UMLConvertor::convertUML($data['uml_code'], $data['format']);
+            $content = UMLConvertor::convertUML($_POST['uml'], $_POST['format']);
         } catch (\RuntimeException $e) {
             throw new Exception($e->getMessage());
         }
 
-        return new SVGRenderer($svgContent);
+        return new SVGRenderer($content);
     },
     'api/uml/export' => function (): HTTPRenderer {
-        $data = ValidateAPIRequest::uml($_POST['format'] ?? null);
+        try {
+            $id = ValidateRequest::integer($_GET['id'] ?? null, 1);
+        } catch (\InvalidArgumentException $e) {
+            throw new HttpException(400, $e->getMessage());
+        }
+
+        $uml = $_POST['uml'] ?? null;
+        $format = $_POST['format'] ?? null;
+
+        if ($uml === null || $format === null) {
+            throw new HttpException(400, 'Missing uml or format parameter');
+        }
 
         try {
-            $content = UMLConvertor::convertUML($data['uml_code'], $data['format']);
+            $content = UMLConvertor::convertUML($uml, $format);
         } catch (\RuntimeException $e) {
-            throw new HttpException(400, $e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
         $contentTypes = [
@@ -66,10 +73,16 @@ return [
             'txt' => 'text/plain; charset=utf-8',
         ];
 
+        if (!isset($contentTypes[$format])) {
+            throw new HttpException(400, 'Unsupported format');
+        }
+
+        $filename = sprintf('problem%d-diagram.%s', $id, $format);
+
         return new FileRenderer(
             $content,
-            $contentTypes[$data['format']],
-            "uml-diagram.{$data['format']}"
+            $contentTypes[$format],
+            $filename
         );
     },
 ];

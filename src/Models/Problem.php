@@ -2,18 +2,32 @@
 
 namespace PlantUML\Models;
 
-class Problem extends TableRow
+class Problem
 {
     public function __construct(
-        int $id,
-        string $title,
-        string $theme,
-        private string $uml
+        private int $id,
+        private string $title,
+        private string $theme,
+        private ?string $uml = null
     ) {
-        parent::__construct($id, $title, $theme);
     }
 
-    public function getUML(): string
+    public function getID(): int
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getTheme(): string
+    {
+        return $this->theme;
+    }
+
+    public function getUML(): ?string
     {
         return $this->uml;
     }

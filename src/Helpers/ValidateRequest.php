@@ -4,7 +4,7 @@ namespace PlantUML\Helpers;
 
 use InvalidArgumentException;
 
-class ValidateArgHelper
+class ValidateRequest
 {
     public static function integer($value, float $min = -INF, float $max = INF): int
     {
