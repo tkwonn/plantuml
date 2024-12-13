@@ -3,6 +3,7 @@
     "description": "PlantUML Server App",
     "license": "proprietary",
     "scripts": {
+        "serve": "php -S localhost:8000 -t public/",
         "cs-fix": "php-cs-fixer fix --diff"
     },
     "autoload": {
