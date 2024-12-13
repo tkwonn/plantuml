@@ -77,12 +77,12 @@ jobs:
             "commands": [
               "set -e",
               "sudo chown -R ubuntu:ubuntu /home/ubuntu/web/plantuml",
-              "sudo -u ubuntu bash -c 'set -e; cd /home/ubuntu/web/plantuml && \
+              "sudo -u ubuntu bash -c \"cd /home/ubuntu/web/plantuml && \
                 git fetch origin $GITHUB_BRANCH && \
                 git reset --hard origin/$GITHUB_BRANCH && \
                 composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
                 sudo systemctl restart php8.3-fpm && \
-                sudo systemctl reload nginx'"
+                sudo systemctl reload nginx\""
             ]
           }
           EOF
@@ -101,43 +101,27 @@ jobs:
           
           echo "SSM Command ID: $COMMAND_ID"
           
-          # Poll for command status
-          MAX_ATTEMPTS=60
-          SLEEP_INTERVAL=10
-          
-          for (( i=0; i<$MAX_ATTEMPTS; i++ ))
-          do
-            STATUS=$(aws ssm list-command-invocations \
-              --command-id "$COMMAND_ID" \
-              --details \
-              --query "CommandInvocations[0].Status" \
-              --output text)
-          
-            echo "Current SSM command status: $STATUS"
-          
-            # Retrieve logs progressively
-            OUTPUT=$(aws ssm get-command-invocation \
-              --instance-id "${{ env.EC2_INSTANCE_ID }}" \
-              --command-id "$COMMAND_ID" \
-              --query "StandardOutputContent" \
-              --output text || true)
-          
-            if [ -n "$OUTPUT" ]; then
-              echo "$OUTPUT"
-            fi
-          
-            if [ "$STATUS" == "Success" ]; then
-              echo "SSM command succeeded!"
-              break
-            elif [ "$STATUS" == "Failed" ]; then
-              echo "SSM command failed!"
+          # Wait for the command to finish
+          aws ssm wait command-executed \
+            --command-id "$COMMAND_ID" \
+            --instance-id "${{ env.EC2_INSTANCE_ID }}" \
+            --region "${{ env.AWS_REGION }}" || {
+              echo "SSM command failed or timed out."
+              aws ssm get-command-invocation \
+                --instance-id "${{ env.EC2_INSTANCE_ID }}" \
+                --command-id "$COMMAND_ID" \
+                --region "${{ env.AWS_REGION }}" \
+                --query "StandardErrorContent" \
+                --output text
               exit 1
-            fi
-          
-            sleep $SLEEP_INTERVAL
-          done
-          
-          if [ "$STATUS" != "Success" ]; then
-            echo "SSM command did not complete within expected time."
-            exit 1
-          fi
+            }
+
+          # Get the command output
+          OUTPUT=$(aws ssm get-command-invocation \
+            --instance-id "${{ env.EC2_INSTANCE_ID }}" \
+            --command-id "$COMMAND_ID" \
+            --region "${{ env.AWS_REGION }}" \
+            --query "StandardOutputContent" \
+            --output text)
+
+          echo "$OUTPUT"
