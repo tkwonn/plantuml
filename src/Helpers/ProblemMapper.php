@@ -1,10 +1,12 @@
 <?php
 
-namespace PlantUML\Models;
+namespace Helpers;
+
+use Models\Problem;
 
 class ProblemMapper
 {
-    private const RESOURCE_PATH = __DIR__ . '/../Resources/';
+    private const RESOURCE_PATH = __DIR__ . '/../resources/';
 
     public function getProblemById(int $id): ?Problem
     {

@@ -8,7 +8,11 @@
     },
     "autoload": {
         "psr-4": {
-            "PlantUML\\": "src/"
+            "Exceptions\\": "src/Exceptions/",
+            "Helpers\\": "src/Helpers/",
+            "Models\\": "src/Models/",
+            "Response\\": "src/Response/",
+            "Views\\": "src/Views/"
         }
     },
     "require-dev": {

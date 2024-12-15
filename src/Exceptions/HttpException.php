@@ -1,6 +1,6 @@
 <?php
 
-namespace PlantUML\Exceptions;
+namespace Exceptions;
 
 use Exception;
 

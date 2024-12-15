@@ -1,8 +1,8 @@
 <?php
 
-namespace PlantUML\Response\Render;
+namespace Response\Render;
 
-use PlantUML\Response\HTTPRenderer;
+use Response\HTTPRenderer;
 
 class SVGRenderer implements HTTPRenderer
 {

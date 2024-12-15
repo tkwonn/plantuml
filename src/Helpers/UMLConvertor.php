@@ -1,15 +1,15 @@
 <?php
 
-namespace PlantUML\Helpers;
+namespace Helpers;
 
 use RuntimeException;
 
 class UMLConvertor
 {
-    private const JAR_PATH = __DIR__ . '/../../lib/plantuml-1.2024.7.jar';
-    private const TMP_PATH = __DIR__ . '/../../var/tmp';
+    private const JAR_PATH = __DIR__ . '/../lib/plantuml-1.2024.7.jar';
+    private const TMP_PATH = __DIR__ . '/../../tmp';
 
-    public static function convertUML(string $uml_code, string $format = 'svg'): string
+    public static function convertUML(string $uml_code, string $format): string
     {
         $uid = uniqid('uml_', true);
         $input_path = self::TMP_PATH . "/$uid.txt";

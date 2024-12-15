@@ -78,8 +78,7 @@ jobs:
               "set -e",
               "sudo chown -R ubuntu:ubuntu /home/ubuntu/web/plantuml",
               "sudo -u ubuntu bash -c \"cd /home/ubuntu/web/plantuml && \
-                git fetch origin $GITHUB_BRANCH && \
-                git reset --hard origin/$GITHUB_BRANCH && \
+                git pull origin $GITHUB_BRANCH && \
                 composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
                 sudo systemctl restart php8.3-fpm && \
                 sudo systemctl reload nginx\""

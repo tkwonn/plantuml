@@ -1,13 +1,13 @@
 <?php
 
-use PlantUML\Exceptions\HttpException;
-use PlantUML\Helpers\UMLConvertor;
-use PlantUML\Helpers\ValidateRequest;
-use PlantUML\Models\ProblemMapper;
-use PlantUML\Response\HTTPRenderer;
-use PlantUML\Response\Render\FileRenderer;
-use PlantUML\Response\Render\HTMLRenderer;
-use PlantUML\Response\Render\SVGRenderer;
+use Exceptions\HttpException;
+use Helpers\ProblemMapper;
+use Helpers\UMLConvertor;
+use Helpers\ValidateRequest;
+use Response\HTTPRenderer;
+use Response\Render\FileRenderer;
+use Response\Render\HTMLRenderer;
+use Response\Render\SVGRenderer;
 
 $problemMapper = new ProblemMapper();
 
@@ -61,22 +61,21 @@ return [
             throw new HttpException(400, 'Missing uml or format parameter');
         }
 
-        try {
-            $content = UMLConvertor::convertUML($uml, $format);
-        } catch (\RuntimeException $e) {
-            throw new Exception($e->getMessage());
-        }
-
         $contentTypes = [
             'png' => 'image/png',
             'svg' => 'image/svg+xml',
             'txt' => 'text/plain; charset=utf-8',
         ];
 
-        if (!isset($contentTypes[$format])) {
-            throw new HttpException(400, 'Unsupported format');
+        if ($format === 'txt') {
+            $content = $uml;
+        } else {
+            try {
+                $content = UMLConvertor::convertUML($uml, $format);
+            } catch (\RuntimeException $e) {
+                throw new Exception($e->getMessage());
+            }
         }
-
         $filename = sprintf('problem%d-diagram.%s', $id, $format);
 
         return new FileRenderer(

@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
-use PlantUML\Exceptions\HttpException;
+use Exceptions\HttpException;
 
 $routes = include '../src/routes.php';
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

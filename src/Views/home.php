@@ -7,7 +7,7 @@
 $pageTitle = 'PlantUML Server';
 $needsEditor = false;
 $bodyClass = 'bg-light';
-require __DIR__ . '/partials/header.php';
+require __DIR__ . '/layout/header.php';
 ?>
 
 <div class="container my-5">

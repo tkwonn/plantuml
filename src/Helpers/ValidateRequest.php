@@ -1,6 +1,6 @@
 <?php
 
-namespace PlantUML\Helpers;
+namespace Helpers;
 
 use InvalidArgumentException;
 

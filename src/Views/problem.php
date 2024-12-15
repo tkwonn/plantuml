@@ -1,10 +1,10 @@
 <?php
 /**
- * @var \Tk\Plantuml\Models\Problem $problem
+ * @var Models\Problem $problem
  */
 $pageTitle = '#' . htmlspecialchars($problem->getID(), ENT_QUOTES, 'UTF-8') . ' ' . htmlspecialchars($problem->getTitle(), ENT_QUOTES, 'UTF-8');
 $needsEditor = true;
-require __DIR__ . '/partials/header.php';
+require __DIR__ . '/layout/header.php';
 ?>
 
 <div class="container-fluid py-4 px-4">
@@ -122,6 +122,7 @@ require __DIR__ . '/partials/header.php';
 
             require(['vs/editor/editor.main'], () => {
                 this.createEditor();
+                this.setChangeEvent();
                 this.showTab('solutionDiagram');
                 this.updateDiagram(this.umlCode, 'solutionDiagram');
             });
@@ -135,6 +136,9 @@ require __DIR__ . '/partials/header.php';
                 minimap: { enabled: false },
                 automaticLayout: true
             });
+        }
+
+        setChangeEvent() {
             // Editor content change event
             this.editor.onDidChangeModelContent(() => {
                 const currentUML = this.editor.getValue();

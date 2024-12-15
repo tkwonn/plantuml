@@ -1,6 +1,6 @@
 <?php
 
-namespace PlantUML\Models;
+namespace Models;
 
 class Problem
 {
