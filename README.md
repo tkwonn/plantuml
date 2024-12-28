@@ -17,7 +17,7 @@ A web-based UML learning tool that helps users practice creating various types o
 2. [Built with](#built-with)
 3. [Features](#features)
 4. [Security Measures](#security-measures)
-4. [CI/CD](#cicd)
+5. [CI/CD](#cicd)
    1. [Continuous Integration](#continuous-integration)
    2. [Continuous Delivery](#continuous-deployment)
 
