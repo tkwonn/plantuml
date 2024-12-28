@@ -3,8 +3,6 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/tkwonn/plantuml?color=chocolate)](https://github.com/tkwonn/plantuml/commits/)
 [![deploy to EC2](https://github.com/tkwonn/plantuml/actions/workflows/deploy.yml/badge.svg)](https://github.com/tkwonn/plantuml/actions/workflows/deploy.yml)
 
-<br>
-
 ## What is this
 
 A web-based UML learning tool that helps users practice creating various types of UML diagrams using PlantUML syntax.
@@ -20,12 +18,8 @@ A web-based UML learning tool that helps users practice creating various types o
 3. [Features](#features)
 4. [Security Measures](#security-measures)
 4. [CI/CD](#cicd)
-   - [CI](#ci)
-      - [Dependency Caching](#dependency-caching)
-      - [Code Quality Check](#code-quality-check)
-   - [CD](#cd)
-      - [OpenID Connect for Secure AWS Authentication](#openid-connect-for-secure-aws-authentication)
-      - [AWS Systems Manager (SSM)](#aws-systems-manager-ssm)
+   1. [Continuous Integration](#continuous-integration)
+   2. [Continuous Delivery](#continuous-deployment)
 
 <br>
 
@@ -84,29 +78,15 @@ Diagrams can be exported in the following formats:
 
 ## CI/CD
 
-### CI
+### Continuous Integration
 
-#### Dependency Caching
+- Dependency caching using Composer to speed up builds
+- Code quality checks using PHP CS Fixer
 
-Utilizes composer cache to speed up dependency installation by reusing previously installed modules.   
+### Continuous Deployment
 
-#### Code Quality Check
-
-Runs PHP CS Fixer in dry-run mode to check for coding standard violations, ensuring no unintended changes are merged.
-
-### CD
-
-#### OpenID Connect for Secure AWS Authentication
-
-- Uses OpenID Connect to securely assume an IAM role with short-lived tokens, eliminating the need to manage long-term AWS credentials as secrets.
-- Ensures secure cloud role operations by granting only the minimal necessary permissions (avoiding FullAccess roles) and verifying that access is restricted to the intended repository.
-
-#### AWS Systems Manager (SSM)
-
-- Used SSM to execute commands on the EC2 instance after authentication, removing the need for direct SSH access or changes to security groups.
-- Key operations include:
-    - Pulling the latest code.
-    - Installing dependencies with `composer install`.
-    - Restarting services (`php8.3-fpm` and `nginx`) to apply changes.
+- Secure AWS Authentication using OpenID Connect (short-lived tokens)
+- Minimal IAM permissions to ensure secure cloud role operations
+- AWS Systems Manager (SSM) for secure remote command execution (no direct SSH access or security group changes)
 
 
