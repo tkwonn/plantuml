@@ -78,6 +78,8 @@ Diagrams can be exported in the following formats:
 
 ## CI/CD
 
+The project uses GitHub Actions to automate testing and deployment workflows with the following configurations:
+
 ### Continuous Integration
 
 - Dependency caching using Composer to speed up builds
