@@ -80,6 +80,8 @@ jobs:
               "sudo -u ubuntu bash -c \"cd /home/ubuntu/web/plantuml && \
                 git pull origin $GITHUB_BRANCH && \
                 composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
+                sudo chown -R www-data:www-data tmp && \
+                sudo chmod 775 tmp && \
                 sudo systemctl restart php8.3-fpm && \
                 sudo systemctl reload nginx\""
             ]
