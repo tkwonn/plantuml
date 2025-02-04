@@ -7,7 +7,7 @@
 -   [About](#-about)
 -   [Demo](#-demo)
 -   [Built with](#️-built-with)
--   [Features](#️-features)
+-   [Features](#-features)
 -   [Security Measures](#️-security-measures)
 -   [CI/CD](#-cicd)
 
