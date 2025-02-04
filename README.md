@@ -45,7 +45,7 @@ The application features a three-pane interface:
 
 1. Editor Pane: Code editor supporting various UML diagrams (Use Case, Class, Activity, etc.)
 2. Preview Pane: Real-time diagram rendering
-3. Solution Pane: Interactive cheat sheets which allows user to understand PlantUML syntax by comparing their work with example solutions
+3. Solution Pane: Interactive cheat sheets which allow users to understand PlantUML syntax by comparing their work with example solutions
 
 <br>
 
