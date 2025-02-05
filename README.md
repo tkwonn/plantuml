@@ -47,8 +47,6 @@ The application features a three-pane interface:
 2. Preview Pane: Real-time diagram rendering
 3. Solution Pane: Interactive cheat sheets which allow users to understand PlantUML syntax by comparing their work with example solutions
 
-<br>
-
 Diagrams can be exported in the following formats:
 - PNG
 - SVG
