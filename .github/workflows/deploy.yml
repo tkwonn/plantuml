@@ -58,9 +58,8 @@ jobs:
     env:
       ROLE_ARN: arn:aws:iam::${{ secrets.AWS_ID }}:role/${{ secrets.ROLE_NAME }}
       SESSION_NAME: deploy-${{ github.run_id }}-${{ github.run_attempt }}
-      EC2_INSTANCE_ID: "i-0787bc1994b8b31e1"
+      EC2_INSTANCE_ID: ${{ secrets.EC2_INSTANCE_ID }}
       AWS_REGION: "us-west-2"
-      GITHUB_BRANCH: "${{ github.ref_name }}"
 
     steps:
       - name: Configure AWS credentials
@@ -78,7 +77,7 @@ jobs:
               "set -e",
               "sudo chown -R ubuntu:ubuntu /home/ubuntu/web/plantuml",
               "sudo -u ubuntu bash -c \"cd /home/ubuntu/web/plantuml && \
-                git pull origin $GITHUB_BRANCH && \
+                git pull origin main && \
                 composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
                 sudo chown -R www-data:www-data tmp && \
                 sudo chmod 775 tmp && \
