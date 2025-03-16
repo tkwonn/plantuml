@@ -21,11 +21,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Install dependencies (Java, Graphviz)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openjdk-11-jre graphviz
-
       - name: Use PHP 8.3 🛎
         uses: shivammathur/setup-php@v2
         with:
