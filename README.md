@@ -1,7 +1,8 @@
 # PlantUML Server
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/tkwonn/plantuml?color=chocolate)](https://github.com/tkwonn/plantuml/commits/)
-[![deploy to EC2](https://github.com/tkwonn/plantuml/actions/workflows/deploy.yml/badge.svg)](https://github.com/tkwonn/plantuml/actions/workflows/deploy.yml)
+[![CI](https://github.com/tkwonn/plantuml/actions/workflows/ci.yml/badge.svg)](https://github.com/tkwonn/plantuml/actions/workflows/ci.yml)
+[![deploy to EC2](https://github.com/tkwonn/plantuml/actions/workflows/cd.yml/badge.svg)](https://github.com/tkwonn/plantuml/actions/workflows/cd.yml)
 
 ## Table of Contents
 -   [About](#-about)
@@ -34,9 +35,10 @@ https://github.com/user-attachments/assets/e0c59a51-8b2c-4434-9370-fc0541a7b3a0
 | VM                | Amazon EC2                                                                                                                                                   |
 | Web server        | Nginx                                                                                                                                                        |
 | Frontend          | HTML, JavaScript, Bootstrap CSS                                                                                                                              |
-| Backend           | PHP                                                                                                                                                          |
+| Backend           | PHP 8.3                                                                                                                                                      |
 | Storage           | Temporary file storage on server                                                                                                                             |
 | CI/CD             | GitHub Actions                                                                                                                                               |
+| QA/Testing        | - PHP CS Fixer (code formatting) <br> - PHPStan (level 9, strictest configuration) <br> - PHPUnit (unit testing)                                             |
 | Framework & Tools | - Monaco editor (code editor)<br>- [PlantUML v1.2024.7 (UML diagram generation)](https://plantuml.com/download)<br>- Graphviz (graph visualization software) |
 
 ## 🔥 Features
@@ -61,17 +63,22 @@ Diagrams can be exported in the following formats:
 
 ## 🚀 CI/CD
 
-The project uses GitHub Actions to automate testing and deployment workflows with the following configurations:
+This project uses **GitHub Actions** for two separate workflows:
 
-#### Continuous Integration
+### Continuous Integration (CI)
 
-- Dependency caching using Composer to speed up builds
-- Code quality checks using PHP CS Fixer
+Located in [`.github/workflows/ci.yml`](.github/workflows/ci.yml), the **CI** workflow runs on pushes to the `main` branch (and other specified triggers). It:
 
-#### Continuous Deployment
+- Installs and caches dependencies via Composer
+- Performs **PHP CS Fixer** checks for code style
+- Performs **PHPStan** static analysis for code quality
+- Runs **PHPUnit** unit tests to verify functionality
 
-- Secure AWS Authentication using OpenID Connect (short-lived tokens)
-- Minimal IAM permissions to ensure secure cloud role operations
-- AWS Systems Manager (SSM) for secure remote command execution (no direct SSH access or security group changes)
+### Continuous Deployment (CD)
 
+Located in [`.github/workflows/cd.yml`](.github/workflows/cd.yml), the **CD** workflow is triggered automatically **only if the CI workflow succeeds**. It:
+
+- Uses GitHub Actions OpenID Connect to assume a short-lived AWS role
+- Runs commands remotely via **AWS Systems Manager (SSM)** to pull and deploy changes on the EC2 instance (no direct SSH access or security group changes)
+- Updates Composer dependencies on the server and restarts services (PHP-FPM, Nginx)
 
