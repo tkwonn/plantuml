@@ -1,0 +1,9 @@
+parameters:
+    paths:
+        - public
+        - src
+    level: 9
+    ignoreErrors:
+        - message: '#Method Helpers\\ProblemMapper::readJsonFile\(\) should return array\{id: int, title: string, theme: string, uml\?: string\}.*#'
+          path: 'src/Helpers/ProblemMapper.php'
+          count: 1

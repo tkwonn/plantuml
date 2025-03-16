@@ -2,17 +2,27 @@
 
 namespace Helpers;
 
-use InvalidArgumentException;
+use Exceptions\HttpException;
 
 class ValidateRequest
 {
-    public static function integer($value, float $min = -INF, float $max = INF): int
+    /**
+     * @throws HttpException
+     */
+    public static function integer(mixed $value, ?int $min = null, ?int $max = null): int
     {
-        $value = filter_var($value, FILTER_VALIDATE_INT, ['min_range' => (int) $min, 'max_range' => (int) $max]);
-        if ($value === false) {
-            throw new InvalidArgumentException('The provided value is not a valid integer.');
+        $intVal = filter_var($value, FILTER_VALIDATE_INT);
+        if ($intVal === false) {
+            throw new HttpException(400, 'The provided value is not a valid integer.');
         }
 
-        return $value;
+        if ($min !== null && $intVal < $min) {
+            throw new HttpException(400, "Value is below minimum ($min).");
+        }
+        if ($max !== null && $intVal > $max) {
+            throw new HttpException(400, "Value is above maximum ($max).");
+        }
+
+        return $intVal;
     }
 }

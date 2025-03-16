@@ -2,7 +2,6 @@
 /**
  * @var string $pageTitle
  * @var bool   $needsEditor
- * @var string $bodyClass
  */
 ?>
 <!DOCTYPE html>
@@ -28,4 +27,4 @@
               href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.css">
     <?php endif; ?>
 </head>
-<body class="<?php echo htmlspecialchars($bodyClass ?? ''); ?>">
+<body>

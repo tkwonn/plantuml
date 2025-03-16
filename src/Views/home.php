@@ -1,12 +1,11 @@
 <?php
 /**
- * @var array $items List of problems
- * @var int   $page Current page number
- * @var int   $totalPages Total number of pages
+ * @var array<Models\Problem> $items List of problems
+ * @var int                   $page Current page number
+ * @var int                   $totalPages Total number of pages
  */
 $pageTitle = 'PlantUML Server';
 $needsEditor = false;
-$bodyClass = 'bg-light';
 require __DIR__ . '/layout/header.php';
 ?>
 
@@ -27,8 +26,8 @@ require __DIR__ . '/layout/header.php';
         </thead>
         <tbody>
         <?php foreach ($items as $item): ?>
-            <tr onclick="window.location.href = '/problems?id=<?= urlencode($item->getID()) ?>'">
-                <td><?= htmlspecialchars($item->getID(), ENT_QUOTES, 'UTF-8') ?></td>
+            <tr onclick="window.location.href = '/problems?id=<?= urlencode((string) $item->getID()) ?>'">
+                <td><?= htmlspecialchars((string) $item->getID(), ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($item->getTitle(), ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($item->getTheme(), ENT_QUOTES, 'UTF-8') ?></td>
             </tr>

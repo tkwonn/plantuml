@@ -6,6 +6,10 @@ use Response\HTTPRenderer;
 
 class HTMLRenderer implements HTTPRenderer
 {
+    /**
+     * @param string               $viewFile The name of the view file to render ("home", "problem", etc.)
+     * @param array<string, mixed> $data
+     */
     public function __construct(
         private string $viewFile,
         private array $data = []
@@ -27,7 +31,12 @@ class HTMLRenderer implements HTTPRenderer
         extract($this->data);
         require $viewPath;
 
-        return ob_get_clean();
+        $content = ob_get_clean();
+        if ($content === false) {
+            throw new \RuntimeException('Failed to render the view file.');
+        }
+
+        return $content;
     }
 
     private function getViewPath(string $path): string

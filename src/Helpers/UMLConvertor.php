@@ -31,7 +31,12 @@ class UMLConvertor
                 throw new RuntimeException('Cannot be converted to UML diagram. Please check your code.');
             }
 
-            return file_get_contents($output_path);
+            $contents = file_get_contents($output_path);
+            if ($contents === false) {
+                throw new RuntimeException('Failed to read the output file.');
+            }
+
+            return $contents;
         } finally {
             @unlink($input_path);
             @unlink($output_path);

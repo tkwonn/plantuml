@@ -2,7 +2,7 @@
 /**
  * @var Models\Problem $problem
  */
-$pageTitle = '#' . htmlspecialchars($problem->getID(), ENT_QUOTES, 'UTF-8') . ' ' . htmlspecialchars($problem->getTitle(), ENT_QUOTES, 'UTF-8');
+$pageTitle = '#' . htmlspecialchars((string) $problem->getID(), ENT_QUOTES, 'UTF-8') . ' ' . htmlspecialchars($problem->getTitle(), ENT_QUOTES, 'UTF-8');
 $needsEditor = true;
 require __DIR__ . '/layout/header.php';
 ?>
@@ -10,7 +10,7 @@ require __DIR__ . '/layout/header.php';
 <div class="container-fluid py-4 px-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0">
-            <span class="text-muted">#<?php echo htmlspecialchars($problem->getID(), ENT_QUOTES, 'UTF-8'); ?></span>
+            <span class="text-muted">#<?php echo htmlspecialchars((string) $problem->getID(), ENT_QUOTES, 'UTF-8'); ?></span>
             <?php echo htmlspecialchars($problem->getTitle(), ENT_QUOTES, 'UTF-8'); ?>
         </h2>
         <a href="/" class="btn btn-outline-primary">
@@ -89,14 +89,14 @@ require __DIR__ . '/layout/header.php';
                 <div class="card-body overflow-auto" style="height: 600px;">
                     <div id="solutionDiagram" role="tabpanel" style="display: none;"></div>
                     <div id="solutionCode" role="tabpanel" style="display: none;">
-                        <pre class="mb-0"><code><?php echo htmlspecialchars($problem->getUML(), ENT_QUOTES, 'UTF-8'); ?></code></pre>
+                        <pre class="mb-0"><code><?php echo htmlspecialchars($problem->getUML() ?? '', ENT_QUOTES, 'UTF-8'); ?></code></pre>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Export Form -->
-        <form id="export-form" method="POST" action="/api/uml/export?id=<?php echo urlencode($problem->getID()); ?>" style="display:none;">
+        <form id="export-form" method="POST" action="/api/uml/export?id=<?php echo urlencode((string) $problem->getID()); ?>" style="display:none;">
             <input type="hidden" name="uml" value="">
             <input type="hidden" name="format" value="">
         </form>

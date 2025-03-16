@@ -5,6 +5,7 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__);
 
 $config = new PhpCsFixer\Config();
+
 return $config
     ->setRiskyAllowed(true)
     ->setRules([
@@ -26,12 +27,14 @@ return $config
         ],
         'concat_space' => ['spacing' => 'one'],
         'declare_equal_normalize' => true,
-        'function_typehint_space' => true,
+        'type_declaration_spaces' => true,
+        'new_with_parentheses' => true,
+        'no_trailing_comma_in_singleline' => true,
+        'blank_lines_before_namespace' => true,
         'include' => true,
         'lowercase_cast' => true,
         'method_argument_space' => ['on_multiline' => 'ensure_fully_multiline'],
         'native_function_casing' => true,
-        'new_with_braces' => true,
         'no_blank_lines_after_class_opening' => true,
         'no_empty_comment' => true,
         'no_empty_phpdoc' => true,
@@ -43,8 +46,6 @@ return $config
         'no_short_bool_cast' => true,
         'no_singleline_whitespace_before_semicolons' => true,
         'no_spaces_around_offset' => true,
-        'no_trailing_comma_in_list_call' => true,
-        'no_trailing_comma_in_singleline_array' => true,
         'no_unneeded_control_parentheses' => true,
         'no_unused_imports' => true,
         'no_whitespace_before_comma_in_array' => true,
@@ -63,7 +64,6 @@ return $config
         'phpdoc_types' => true,
         'return_type_declaration' => true,
         'short_scalar_cast' => true,
-        'single_blank_line_before_namespace' => true,
         'single_class_element_per_statement' => true,
         'single_line_comment_style' => true,
         'single_quote' => true,
